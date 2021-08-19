@@ -3,60 +3,15 @@
 
 #include "stm32f40xRegisters.h"
 
+
+// #define BIT_SET(a,b,n) ((a) |= (1ULL<<(b)))
+
 typedef unsigned int uint32_t;
 typedef unsigned short int uint16_t;
 typedef volatile uint32_t vuint32_t;
 typedef volatile uint16_t vuint16_t;
 typedef volatile unsigned int __reg;
 typedef unsigned char uint8_t;
-enum {
-  GPIO_MODER_INPUT = 0,
-  GPIO_MODER_GPIO = 1,
-  GPIO_MODER_ALTERNATE_FUNCTION = 2,
-  GPIO_MODER_ANALOG = 3
-} GPIO_MODER;
-
-enum {
-  GPIO_OTYPER_OPP = 0, // output push pull
-  GPIO_OTYPER_OOD = 1 // output open drain
-} GPIO_OTYPER;
-
-enum {
-  GPIO_OSPEEDR_LOW = 0,
-  GPIO_OSPEEDR_MEDIUM = 1,
-  GPIO_OSPEEDR_HIGH = 2,
-  GPIO_OSPEEDR_VERY_HIGH = 3
-} GPIO_OSPEEDR;
-
-enum {
-  GPIO_PUPDR_NP = 0, // no pull up, no pull down
-  GPIO_PUPDR_PU = 1, // pull up
-  GPIO_PUPDR_PD = 2, // pull down
-} GPIO_PUPDR;
-
-typedef struct{
-  __reg MODER;
-  __reg OTYPER;
-  __reg OSPEEDR;
-  __reg PUPDR;
-  __reg IDR;
-  __reg ODR;
-  __reg BSRR;
-  __reg AFRL;
-  __reg AFRH;
-} GPIO_TypeDef;
-
-#define GPIOA       ((GPIO_TypeDef *) GPIOA_BASE)
-#define GPIOB       ((GPIO_TypeDef *) GPIOB_BASE)
-#define GPIOC       ((GPIO_TypeDef *) GPIOC_BASE)
-#define GPIOD       ((GPIO_TypeDef *) GPIOD_BASE)
-#define GPIOE       ((GPIO_TypeDef *) GPIOE_BASE)
-#define GPIOF       ((GPIO_TypeDef *) GPIOF_BASE)
-#define GPIOG       ((GPIO_TypeDef *) GPIOG_BASE)
-#define GPIOH       ((GPIO_TypeDef *) GPIOH_BASE)
-#define GPIOI       ((GPIO_TypeDef *) GPIOI_BASE)
-#define GPIOJ       ((GPIO_TypeDef *) GPIOJ_BASE)
-#define GPIOK       ((GPIO_TypeDef *) GPIOK_BASE)
 
 typedef struct{
   __reg ACR;

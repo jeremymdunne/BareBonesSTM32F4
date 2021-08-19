@@ -5,7 +5,7 @@ COREDIR=$(LIBDIR)/stm32f40x_core
 LINKER=$(COREDIR)/stm32f4.ld
 TARGET=cortex-m4
 
-INCLUDE_DIRS = -I . -I $(COREDIR)
+INCLUDE_DIRS = -I . -I $(COREDIR) -I $(COREDIR)/peripherals
 
 CC=arm-none-eabi-gcc
 AS=arm-none-eabi-as
@@ -26,11 +26,15 @@ $(BUILDDIR)/stm32f407.o: $(COREDIR)/startup/stm32f407.s
 $(BUILDDIR)/stm32f40x_system.o: $(COREDIR)/stm32f40x_system.c
 	$(CC) $(CFLAGS) -c -o $@ $^
 
+# gpio
+$(BUILDDIR)/gpio.o: $(COREDIR)/peripherals/gpio.c
+	$(CC) $(CFLAGS) -c -o $@ $^ -I $(COREDIR)
+
 # main
 $(BUILDDIR)/main.o: $(SOURCEDIR)/main.c
 	$(CC) $(CFLAGS) -c -o $@ $^ $(INCLUDE_DIRS)
 
-$(BUILDDIR)/app.elf: $(LINKER) $(BUILDDIR)/stm32f407.o $(BUILDDIR)/main.o $(BUILDDIR)/stm32f40x_system.o
+$(BUILDDIR)/app.elf: $(LINKER) $(BUILDDIR)/stm32f407.o $(BUILDDIR)/main.o $(BUILDDIR)/stm32f40x_system.o $(BUILDDIR)/gpio.o
 	$(LD) -o $@ -T $^
 
 $(BUILDDIR)/app.bin: $(BUILDDIR)/app.elf
